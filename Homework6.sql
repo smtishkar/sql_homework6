@@ -1,6 +1,26 @@
 use homework6;
 
 DELIMITER //
+CREATE PROCEDURE sec2 (n int)
+BEGIN 
+	DECLARE days DECIMAL (5,2) DEFAULT 0;
+    DECLARE Hours DECIMAL (5,2) DEFAULT 0;
+    DECLARE Minutes DECIMAL (5,2) DEFAULT 0;
+    DECLARE Seconds DECIMAL (5,2) DEFAULT 0;
+		SET days = n / 86400;
+		SET n = n % 86400;
+		SET Hours = n / 3600;
+        SET n = n % 3600;
+        SET Minutes = n / 60;
+        SET n = n % 60;
+        SET Seconds = n; 
+	SELECT floor(days), floor(hours), floor(minutes), floor(seconds);
+END // 
+DELIMITER ;
+
+CALL sec2 (123456);
+
+DELIMITER //
 CREATE FUNCTION sec (n INT)
 RETURNS VARCHAR (100)
 deterministic 
@@ -23,29 +43,6 @@ DELIMITER ;
 
 SELECT sec (123456);
 
-
-DELIMITER //
-CREATE PROCEDURE sec2 (n int)
-BEGIN 
-	DECLARE days DECIMAL (5,2) DEFAULT 0;
-    DECLARE Hours DECIMAL (5,2) DEFAULT 0;
-    DECLARE Minutes DECIMAL (5,2) DEFAULT 0;
-    DECLARE Seconds DECIMAL (5,2) DEFAULT 0;
-		SET days = n / 86400;
-		SET n = n % 86400;
-		SET Hours = n / 3600;
-        SET n = n % 3600;
-        SET Minutes = n / 60;
-        SET n = n % 60;
-        SET Seconds = n; 
-	SELECT floor(days), floor(hours), floor(minutes), floor(seconds);
-END // 
-DELIMITER ;
-
-CALL sec2 (123456);
-
-
-
 DELIMITER //
 CREATE FUNCTION even (n INT)
 RETURNS VARCHAR (100)
@@ -63,6 +60,6 @@ BEGIN
 END // 
 DELIMITER ;
 
-SELECT even (50);
+SELECT even (10);
 
 
